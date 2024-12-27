@@ -27,10 +27,13 @@ def letter_count(text):
 def get_book(path):
     with open(path) as f:
         return f.read()
-    
+
+#for use in the cleaning function    
 def sort_on(d):
     return d["count"]
     
+
+#return only letters, and sort the dictionary by frequency
 def clean_character(character_dictionary):
     clean_and_sort = []
     for character in character_dictionary:
@@ -39,6 +42,7 @@ def clean_character(character_dictionary):
     clean_and_sort.sort(reverse=True, key=sort_on)
     return clean_and_sort
 
+#function to generate the report
 def print_report(path, word_count, character_count):
 
     print(f"---Report for {path}---")

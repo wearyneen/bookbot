@@ -4,7 +4,8 @@ def main():
     text = get_book(book_path)
     word_count = get_num_words(text)
     character_count = letter_count(text)
-    print_report(book_path, word_count, character_count)
+    clean_characters = clean_character(character_count)
+    print_report(book_path, word_count, clean_characters)
 
 #translete str to list and count
 def get_num_words(text):
@@ -27,9 +28,17 @@ def get_book(path):
     with open(path) as f:
         return f.read()
     
-def clean_character(character_dictionary):
-    pass
+def sort_on(d):
+    return d["count"]
     
+def clean_character(character_dictionary):
+    clean_and_sort = []
+    for character in character_dictionary:
+        if character.isalpha():
+            clean_and_sort.append({"character": character, "count": character_dictionary[character]})
+    clean_and_sort.sort(reverse=True, key=sort_on)
+    return clean_and_sort
+
 def print_report(path, word_count, character_count):
 
     print(f"---Report for {path}---")
@@ -37,8 +46,7 @@ def print_report(path, word_count, character_count):
     print(f"{word_count} number of in the book.")
     print()
     for character in character_count:
-        if character.isalpha():
-            print(f"There are {character_count[character]} {character}'s in this book" )
+        print(f"There are {character["count"]} {character["character"]}'s in this book" )
     print()
     print("---End---")
 
